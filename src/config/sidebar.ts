@@ -567,8 +567,7 @@ export const SIDEBAR: Partial<Record<Sections, SectionEntry[]>> = {
             },
             {
               title: "Type Conversions",
-              url: "cre/reference/sdk/type-conversions",
-              highlightAsCurrent: ["cre/reference/sdk/type-conversions-ts"],
+              url: "cre/reference/sdk/type-conversions-ts",
             },
           ],
         },
