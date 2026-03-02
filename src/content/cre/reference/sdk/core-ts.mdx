@@ -407,29 +407,21 @@ When `runInNodeMode` returns a non-primitive type, the SDK needs to know how to 
 **Type definition:**
 
 ```typescript
-type UnwrapOptions<T> =
-  | { instance: T }
-  | { schema: StandardSchemaV1<T> }
-  | { factory: () => T }
+type UnwrapOptions<T> = { instance: T } | { schema: StandardSchemaV1<T> } | { factory: () => T }
 ```
 
 **Variants:**
 
-| Variant | When to use | Example |
-| --- | --- | --- |
-| `{ instance: value }` | Primitive types (`string`, `number`, `bigint`, `boolean`) | `{ instance: 0n }` |
-| `{ schema: validator }` | Objects with a Zod or Standard Schema validator | `{ schema: myZodSchema }` |
-| `{ factory: () => T }` | Objects without a schema — provide a factory that returns a default instance | `{ factory: () => ({ price: 0n, source: "" }) }` |
+| Variant                 | When to use                                                                  | Example                                          |
+| ----------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------ |
+| `{ instance: value }`   | Primitive types (`string`, `number`, `bigint`, `boolean`)                    | `{ instance: 0n }`                               |
+| `{ schema: validator }` | Objects with a Zod or Standard Schema validator                              | `{ schema: myZodSchema }`                        |
+| `{ factory: () => T }`  | Objects without a schema — provide a factory that returns a default instance | `{ factory: () => ({ price: 0n, source: "" }) }` |
 
 **Example with `schema` (most common for complex types):**
 
 ```typescript
-import {
-  HTTPClient,
-  consensusMedianAggregation,
-  type Runtime,
-  type NodeRuntime,
-} from "@chainlink/cre-sdk"
+import { HTTPClient, consensusMedianAggregation, type Runtime, type NodeRuntime } from "@chainlink/cre-sdk"
 import { z } from "zod"
 
 const priceResultSchema = z.object({
@@ -447,11 +439,7 @@ const fetchPrice = (nodeRuntime: NodeRuntime<Config>): PriceResult => {
 
 const onTrigger = (runtime: Runtime<Config>): string => {
   const price = runtime
-    .runInNodeMode(
-      fetchPrice,
-      consensusMedianAggregation<PriceResult>(),
-      { schema: priceResultSchema }
-    )()
+    .runInNodeMode(fetchPrice, consensusMedianAggregation<PriceResult>(), { schema: priceResultSchema })()
     .result()
 
   runtime.log(`Price: ${price.price} from ${price.source}`)
@@ -516,21 +504,21 @@ runtime.getSecret(
 
 ### `SecretRequest` / `SecretRequestJson`
 
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `id` | `string` | Yes | The identifier of the secret to retrieve. |
-| `namespace` | `string` | Yes | The namespace the secret belongs to. |
+| Field       | Type     | Required | Description                               |
+| ----------- | -------- | -------- | ----------------------------------------- |
+| `id`        | `string` | Yes      | The identifier of the secret to retrieve. |
+| `namespace` | `string` | Yes      | The namespace the secret belongs to.      |
 
 ### `Secret`
 
 The object returned by `.result()`.
 
-| Field | Type | Description |
-| --- | --- | --- |
-| `id` | `string` | The secret identifier. |
-| `namespace` | `string` | The secret namespace. |
-| `owner` | `string` | The address of the secret owner. |
-| `value` | `string` | The secret value. |
+| Field       | Type     | Description                      |
+| ----------- | -------- | -------------------------------- |
+| `id`        | `string` | The secret identifier.           |
+| `namespace` | `string` | The secret namespace.            |
+| `owner`     | `string` | The address of the secret owner. |
+| `value`     | `string` | The secret value.                |
 
 ### Using secrets in `initWorkflow`
 
@@ -550,9 +538,7 @@ const initWorkflow = (config: Config, secretsProvider: SecretsProvider) => {
 import { type Runtime } from "@chainlink/cre-sdk"
 
 const onTrigger = (runtime: Runtime<Config>): string => {
-  const secret = runtime
-    .getSecret({ id: "my-api-key", namespace: "default" })
-    .result()
+  const secret = runtime.getSecret({ id: "my-api-key", namespace: "default" }).result()
 
   runtime.log(`Secret owner: ${secret.owner}`)
 

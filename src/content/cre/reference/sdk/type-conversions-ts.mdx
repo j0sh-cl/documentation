@@ -26,14 +26,14 @@ The CRE TypeScript SDK uses Protocol Buffers under the hood. Each protobuf messa
 
 This table shows how protobuf types map to their TypeScript runtime and JSON-serializable forms.
 
-| Protobuf Type | Runtime (`Type`) | JSON (`TypeJson`) | Notes |
-| --- | --- | --- | --- |
-| `bytes` | `Uint8Array` | `string` (base64) | Use [`hexToBase64()`](/cre/reference/sdk/evm-client-ts#hextobase64) and [`base64ToHex()`](/cre/reference/sdk/evm-client-ts#base64tohex) to convert between hex and base64. |
-| `int64` / `uint64` | `bigint` | `string` | Numeric strings like `"12345"`. |
-| `enum` | Enum constant (`number`) | String name | For example, `TX_STATUS_SUCCESS` (number) vs `"TX_STATUS_SUCCESS"` (string). |
-| `google.protobuf.Duration` | `Duration` object | `string` (e.g. `"5s"`) | Duration strings use Go-style format: `"5s"`, `"1.5m"`, `"200ms"`. |
-| `google.protobuf.Timestamp` | `Timestamp` `{ seconds: bigint, nanos: number }` | `{ seconds?: string, nanos?: number }` | |
-| `BigInt` (CRE custom) | `{ absVal: Uint8Array, sign: bigint }` | `{ absVal: string, sign: string }` | See [ProtoBigInt](#protobigint) below. |
+| Protobuf Type               | Runtime (`Type`)                                 | JSON (`TypeJson`)                      | Notes                                                                                                                                                                      |
+| --------------------------- | ------------------------------------------------ | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bytes`                     | `Uint8Array`                                     | `string` (base64)                      | Use [`hexToBase64()`](/cre/reference/sdk/evm-client-ts#hextobase64) and [`base64ToHex()`](/cre/reference/sdk/evm-client-ts#base64tohex) to convert between hex and base64. |
+| `int64` / `uint64`          | `bigint`                                         | `string`                               | Numeric strings like `"12345"`.                                                                                                                                            |
+| `enum`                      | Enum constant (`number`)                         | String name                            | For example, `TX_STATUS_SUCCESS` (number) vs `"TX_STATUS_SUCCESS"` (string).                                                                                               |
+| `google.protobuf.Duration`  | `Duration` object                                | `string` (e.g. `"5s"`)                 | Duration strings use Go-style format: `"5s"`, `"1.5m"`, `"200ms"`.                                                                                                         |
+| `google.protobuf.Timestamp` | `Timestamp` `{ seconds: bigint, nanos: number }` | `{ seconds?: string, nanos?: number }` |                                                                                                                                                                            |
+| `BigInt` (CRE custom)       | `{ absVal: Uint8Array, sign: bigint }`           | `{ absVal: string, sign: string }`     | See [ProtoBigInt](#protobigint) below.                                                                                                                                     |
 
 ## ProtoBigInt
 
@@ -43,10 +43,10 @@ This table shows how protobuf types map to their TypeScript runtime and JSON-ser
 
 The protobuf `BigInt` encodes a signed arbitrary-precision integer as two fields:
 
-| Field | Runtime type | JSON type | Description |
-| --- | --- | --- | --- |
+| Field    | Runtime type | JSON type         | Description                                                                  |
+| -------- | ------------ | ----------------- | ---------------------------------------------------------------------------- |
 | `absVal` | `Uint8Array` | `string` (base64) | The absolute value as a big-endian byte array (base64-encoded in JSON form). |
-| `sign` | `bigint` | `string` | The sign: `"1"` for positive, `"0"` for zero, `"-1"` for negative. |
+| `sign`   | `bigint`     | `string`          | The sign: `"1"` for positive, `"0"` for zero, `"-1"` for negative.           |
 
 ### Converting between `bigint` and `ProtoBigInt`
 

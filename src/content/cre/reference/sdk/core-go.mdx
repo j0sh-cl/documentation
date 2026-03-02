@@ -266,21 +266,21 @@ runtime.GetSecret(req *SecretRequest) Promise[*Secret]
 
 ### `SecretRequest`
 
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `Id` | `string` | Yes | The identifier of the secret to retrieve. |
-| `Namespace` | `string` | Yes | The namespace the secret belongs to. |
+| Field       | Type     | Required | Description                               |
+| ----------- | -------- | -------- | ----------------------------------------- |
+| `Id`        | `string` | Yes      | The identifier of the secret to retrieve. |
+| `Namespace` | `string` | Yes      | The namespace the secret belongs to.      |
 
 ### `Secret`
 
 The value returned when the promise resolves.
 
-| Field | Type | Description |
-| --- | --- | --- |
-| `Id` | `string` | The secret identifier. |
-| `Namespace` | `string` | The secret namespace. |
-| `Owner` | `string` | The address of the secret owner. |
-| `Value` | `string` | The secret value. |
+| Field       | Type     | Description                      |
+| ----------- | -------- | -------------------------------- |
+| `Id`        | `string` | The secret identifier.           |
+| `Namespace` | `string` | The secret namespace.            |
+| `Owner`     | `string` | The address of the secret owner. |
+| `Value`     | `string` | The secret value.                |
 
 ### `SecretsProvider` interface
 
@@ -317,5 +317,6 @@ func onTrigger(config *Config, runtime cre.Runtime, ...) (string, error) {
 ```
 
 <Aside type="note" title="Secrets guide">
-  For a complete walkthrough on creating, storing, and using secrets, see the [Secrets guide](/cre/guides/workflow/secrets).
+  For a complete walkthrough on creating, storing, and using secrets, see the [Secrets
+  guide](/cre/guides/workflow/secrets).
 </Aside>
