@@ -565,6 +565,11 @@ export const SIDEBAR: Partial<Record<Sections, SectionEntry[]>> = {
               url: "cre/reference/sdk/consensus",
               highlightAsCurrent: ["cre/reference/sdk/consensus-ts", "cre/reference/sdk/consensus-go"],
             },
+            {
+              title: "Type Conversions",
+              url: "cre/reference/sdk/type-conversions",
+              highlightAsCurrent: ["cre/reference/sdk/type-conversions-ts"],
+            },
           ],
         },
       ],
